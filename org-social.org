@@ -1,0 +1,119 @@
+#+TITLE: Feed de Ypot
+#+NICK: Ypot
+#+AVATAR: https://github.com/Ypot.png
+#+LINK: https://github.com/Ypot/
+#+FOLLOW: tanrax https://tanrax.com/social.org
+
+* Posts
+** 2026-02-21T22:55:13+0100
+:PROPERTIES:
+:TAGS: 
+:CLIENT: org-social.el
+:MOOD: 
+:END:
+
+Testing
+
+** 2026-06-27T00:15:51+0200
+:PROPERTIES:
+:CLIENT: org-social.el
+:MOOD: 
+:LANG: en
+:TAGS: emacs calc calc-embedded
+:END:
+*Calc Embedded mode* operates inside any ordinary buffer. There is no calculator buffer in sight: *Each formula is its own little calculator.*
+
+If you are reading this in an org buffer, try it without leaving this spot: put point on the formula between =$= signs and press =C-x * u=:
+$80 km/h * 2h$
+
+Maybe you will need this first:
+#+begin_src emacs-lisp
+(setq calc-multiplication-has-precedence nil)
+#+end_src
+
+Try again:
+$80 km/h * 2h$
+
+Add ~=>~ and it keeps both sides, syncing the right one. Either way the units ride along and cancel where they can:
+$(1000 kg/m^3) * (2 m^3) => $
+
+Add ~:=~ and it names a variable the rest of the buffer can reuse:
+$rate := 45 EUR/h$
+$hours := 32 h$
+$rate * hours => $
+
+With several formulas live at once you do not poke them one by one: =M-1 C-x * a= activates every ~:=~ and ~=>~ in the buffer, and =M-1 C-x * u= recomputes them all, but... (Emacs bug#80901: https://lists.gnu.org/archive/html/bug-gnu-emacs/2026-04/msg01490.html).
+
+This is what I have added to my init.el to work around it for now:
+#+begin_src emacs-lisp
+(defun calc-embedded-update-all-formulas ()
+  "Update all Calc embedded formulas in the current buffer.
+Processes in dependency order: := assignments, then => evaluations,
+then bare expressions (variable references like $var$).
+Workaround for a bug where the prefix-arg path of
+`calc-embedded-update-formula' silently drops formulas during
+cascade recomputation (Emacs bug#80901)."
+  (interactive)
+  (let (assignments evaltos expressions (count 0))
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward "\\$\\([^$\n]+\\)\\$" nil t)
+        (let ((text (match-string 1))
+              (pos (copy-marker (1+ (match-beginning 0)))))
+          (cond
+           ((and (string-match ":=" text) (not (string-match "=>" text)))
+            (push pos assignments))
+           ((string-match "=>" text)
+            (push pos evaltos))
+           (t
+            (push pos expressions))))))
+    (setq assignments (nreverse assignments)
+          evaltos (nreverse evaltos)
+          expressions (nreverse expressions))
+    (save-excursion
+      (dolist (pos (append assignments evaltos expressions))
+        (goto-char pos)
+        (condition-case nil
+            (progn (calc-embedded-update-formula nil)
+                   (cl-incf count))
+          (error nil))
+        (set-marker pos nil)))
+    (message "Updated %d formulas" count)))
+
+(advice-add 'calc-embedded-update-formula :around
+            (lambda (orig arg)
+              "Redirect prefix-arg path to the workaround for bug#80901."
+              (if arg
+                  (calc-embedded-update-all-formulas)
+                (funcall orig arg))))
+#+end_src
+
+Example:
+$rate := 45 EUR/h$
+$hours := 32 h$
+$material := 180 EUR$
+$rate * hours => $
+$subtotal := rate * hours + material => $
+Total w/VAT:  $subtotal * 1.21 => $
+
+Units handling is brilliant in Calc, and we can leverage it in Calc Embedded:
+$leg1 := 3 m$
+$leg2 := 40 cm$
+$hyp := sqrt(leg1^2 + leg2^2) => $
+The bare version keeps =m= and =cm= apart — it returns =sqrt(9 m^2 + 1600 cm^2)=, unconverted. Wrap it in =usimplify= and Calc reconciles the scales into one clean length:
+$hyp := usimplify(sqrt(leg1^2 + leg2^2)) => $
+
+→ hyp = 3.0265 m
+
+$mass := 2 kg$
+$v := 3 m/s$
+$E_c := (1/2) mass * v^2 => $
+
+Out comes =9 kg m^2 / s^2=
+
+*Solving equations, in place.* Press =C-x * u= in the formula:
+$solve(22 x + 33 = 65, x) => $
+
+*Finale: make it pretty.* Embedded mode can also draw formulas in two dimensions — stacked fractions, raised exponents, roots — with the Big language. A global-mode line sets the display for the whole buffer; Calc scans for it from the top of the buffer, so where you place it does not matter:
+[calc-global-mode: language: nil]
+Change that =nil= to =big=, re-scan with =C-x * a=, then recompute with =M-1 C-x * u=: every formula in the post redraws stacked. A 2-D formula spans several lines, so it will break.
