@@ -1,0 +1,7 @@
+# Whitelist: ignore everything by default, then allow only the feed's files.
+# A stray file dropped in this folder stays invisible to git, so it can never
+# be accidentally staged (git add -A) and pushed to the public repo.
+/*
+!/.gitignore
+!/.nojekyll
+!/org-social.org
