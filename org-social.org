@@ -1,4 +1,4 @@
-#+TITLE: org-social
+#+TITLE: Feed de Ypot
 #+NICK: Ypot
 #+AVATAR: https://github.com/Ypot.png
 #+LINK: https://github.com/Ypot/
