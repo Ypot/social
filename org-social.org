@@ -5,15 +5,6 @@
 #+FOLLOW: tanrax https://tanrax.com/social.org
 
 * Posts
-** 2026-02-21T22:55:13+0100
-:PROPERTIES:
-:TAGS: 
-:CLIENT: org-social.el
-:MOOD: 
-:END:
-
-Testing
-
 ** 2026-06-27T00:15:51+0200
 :PROPERTIES:
 :CLIENT: org-social.el
@@ -23,7 +14,7 @@ Testing
 :END:
 *Calc Embedded mode* operates inside any ordinary buffer. There is no calculator buffer in sight: *Each formula is its own little calculator.*
 
-If you are reading this in an org buffer, try it without leaving this spot: put point on the formula between =$= signs and press =C-x * u=:
+If you are reading this in an Emacs buffer, try it without leaving this spot: put point on the formula between =$= signs and press =C-x * u=:
 $80 km/h * 2h$
 
 Maybe you will need this first:
