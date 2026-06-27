@@ -2,16 +2,21 @@
 #+NICK: Ypot
 #+AVATAR: https://github.com/Ypot.png
 #+LINK: https://github.com/Ypot/
-#+FOLLOW: tanrax https://tanrax.com/social.org
+#+FOLLOW: Omar https://www.matem.unam.mx/~omar/social.org
+#+FOLLOW: Andros https://host.org-social.org/andros/social.org
 
 * Posts
 ** 2026-06-27T00:15:51+0200
 :PROPERTIES:
 :CLIENT: org-social.el
-:MOOD: 
 :LANG: en
 :TAGS: emacs calc calc-embedded
 :END:
+*** How to read this post
+- Want to read this in Org Social? You can follow me: =#+FOLLOW: Ypot https://ypot.github.io/social/org-social.org=, and activate org-mode: =M-x org-mode= when reading the post.
+- You could open it in Emacs (interactive): =M-x eww RET https://raw.githubusercontent.com/Ypot/social/refs/heads/main/org-social.org=. Optionally, you can do =M-x org-mode=.
+- Just want it rendered in a browser? https://github.com/Ypot/social/blob/main/org-social.org (not interactive, not recommended).
+
 *** Intro
 *Calc Embedded* operates inside any ordinary buffer. There is no calc buffer in sight, there is no major, nor minor mode: *Each formula is its own little calculator.*
 
@@ -72,12 +77,6 @@ Total w/VAT:  $subtotal * 1.21 => $
 Embedded mode can also draw formulas in two dimensions — stacked fractions, raised exponents, roots — with the Big language. A global-mode line sets the display for the whole buffer; Calc scans for it from the top of the buffer, so where you place it does not matter:
 [calc-global-mode: language: nil]
 Change that =nil= to =big=, re-scan with =C-x * a=, then recompute with =M-1 C-x * u=: every formula in the post redraws stacked. A 2-D formula spans several lines, so it will break.
-
-*** How to read it
-- *Reading this in Org Social?* You're all set — reply or react right here. To follow me: =#+FOLLOW: Ypot https://ypot.github.io/social/org-social.org=
-- *Curious about Org Social?* A social network that runs on a single plain Org file over HTTP. Start here: https://github.com/tanrax/org-social — Emacs client: =M-x package-install RET org-social=
-- *Open it in Emacs* (fully interactive): =M-x eww RET https://raw.githubusercontent.com/Ypot/social/refs/heads/main/org-social.org=, then you can do =M-x org-mode=.
-- Just want it rendered in a browser? https://github.com/Ypot/social/blob/main/org-social.org (GitHub renders the Org as HTML).
 
 *** Footnotes
 [fn:1893e64a74b69123] Thanks to Eli Zaretskii for solving it for Emacs 31 ([[https://debbugs.gnu.org/cgi/bugreport.cgi?bug=80901][Emacs bug#80901]]). On Emacs 30.x and earlier you may need this workaround:
