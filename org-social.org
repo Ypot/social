@@ -12,7 +12,8 @@
 :LANG: en
 :TAGS: emacs calc calc-embedded
 :END:
-*Calc Embedded mode* operates inside any ordinary buffer. There is no calculator buffer in sight: *Each formula is its own little calculator.*
+*** Intro
+*Calc Embedded* operates inside any ordinary buffer. There is no calc buffer in sight, there is no major, nor minor mode: *Each formula is its own little calculator.*
 
 If you are reading this in an Emacs buffer, try it without leaving this spot: put point on the formula between =$= signs and press =C-x * u=:
 $80 km/h * 2h$
@@ -25,17 +26,61 @@ Maybe you will need this first:
 Try again:
 $80 km/h * 2h$
 
-Add ~=>~ and it keeps both sides, syncing the right one. Either way the units ride along and cancel where they can:
+*** Evaluates-to formulas
+Add ~=>~ and it evaluates-to the right side, keeping both sides. Either way the units ride along and cancel where they can. Put point again on the formula between =$= signs and press =C-x * u=:
 $(1000 kg/m^3) * (2 m^3) => $
 
-Add ~:=~ and it names a variable the rest of the buffer can reuse:
+*** Assignment formulas
+Add ~:=~ and it assigns a value to a variable that the rest of the buffer can reuse.
+
+=M-1 C-x * a= detects and re-activates every "assignment-formula" in the buffer (the =M-1= forces a clean rebuild). Then, you just have to put the point on the last "evaluates-to formula" and press =C-x * u=:
 $rate := 45 EUR/h$
 $hours := 32 h$
 $rate * hours => $
 
-With several formulas live at once you do not poke them one by one: =M-1 C-x * a= activates every ~:=~ and ~=>~ in the buffer, and =M-1 C-x * u= recomputes them all, but... (Emacs bug#80901: https://lists.gnu.org/archive/html/bug-gnu-emacs/2026-04/msg01490.html).
+*** Units
+Units handling is brilliant in Calc, and we can leverage it in Calc Embedded:
+$leg1 := 3 m$
+$leg2 := 40 cm$
+$hyp := sqrt(leg1^2 + leg2^2) => $
 
-This is what I have added to my init.el to work around it for now:
+The bare version keeps =m= and =cm= apart — it returns =sqrt(9 m^2 + 1600 cm^2)=, unconverted. Wrap it in =usimplify= and Calc reconciles the scales into one clean length:
+$hyp := usimplify(sqrt(leg1^2 + leg2^2)) => $
+
+$mass := 2 kg$
+$v := 3 m/s$
+$E_c := (1/2) mass * v^2 => $
+
+Out comes =9 kg m^2 / s^2=
+
+*** Equations
+It can also solve equations! Press =C-x * u= on the next formula:
+$solve(22 x + 33 = 65, x) => $
+
+*** Batch
+With several formulas at once you do not poke them one by one; =M-1 C-x * u= should compute them all [fn:1893e64a74b69123].
+
+$rate := 45 EUR/h$
+$hours := 32 h$
+$material := 180 EUR$
+$rate * hours => $
+
+$subtotal := rate * hours + material => $
+Total w/VAT:  $subtotal * 1.21 => $
+
+*** Finale: make it big
+Embedded mode can also draw formulas in two dimensions — stacked fractions, raised exponents, roots — with the Big language. A global-mode line sets the display for the whole buffer; Calc scans for it from the top of the buffer, so where you place it does not matter:
+[calc-global-mode: language: nil]
+Change that =nil= to =big=, re-scan with =C-x * a=, then recompute with =M-1 C-x * u=: every formula in the post redraws stacked. A 2-D formula spans several lines, so it will break.
+
+*** How to read it
+- *Reading this in Org Social?* You're all set — reply or react right here. To follow me: =#+FOLLOW: Ypot https://ypot.github.io/social/org-social.org=
+- *Curious about Org Social?* A social network that runs on a single plain Org file over HTTP. Start here: https://github.com/tanrax/org-social — Emacs client: =M-x package-install RET org-social=
+- *Open it in Emacs* (fully interactive): =M-x eww RET https://raw.githubusercontent.com/Ypot/social/refs/heads/main/org-social.org=, then you can do =M-x org-mode=.
+- Just want it rendered in a browser? https://github.com/Ypot/social/blob/main/org-social.org (GitHub renders the Org as HTML).
+
+*** Footnotes
+[fn:1893e64a74b69123] Thanks to Eli Zaretskii for solving it for Emacs 31 ([[https://debbugs.gnu.org/cgi/bugreport.cgi?bug=80901][Emacs bug#80901]]). On Emacs 30.x and earlier you may need this workaround:
 #+begin_src emacs-lisp
 (defun calc-embedded-update-all-formulas ()
   "Update all Calc embedded formulas in the current buffer.
@@ -78,33 +123,3 @@ cascade recomputation (Emacs bug#80901)."
                   (calc-embedded-update-all-formulas)
                 (funcall orig arg))))
 #+end_src
-
-Example:
-$rate := 45 EUR/h$
-$hours := 32 h$
-$material := 180 EUR$
-$rate * hours => $
-$subtotal := rate * hours + material => $
-Total w/VAT:  $subtotal * 1.21 => $
-
-Units handling is brilliant in Calc, and we can leverage it in Calc Embedded:
-$leg1 := 3 m$
-$leg2 := 40 cm$
-$hyp := sqrt(leg1^2 + leg2^2) => $
-The bare version keeps =m= and =cm= apart — it returns =sqrt(9 m^2 + 1600 cm^2)=, unconverted. Wrap it in =usimplify= and Calc reconciles the scales into one clean length:
-$hyp := usimplify(sqrt(leg1^2 + leg2^2)) => $
-
-→ hyp = 3.0265 m
-
-$mass := 2 kg$
-$v := 3 m/s$
-$E_c := (1/2) mass * v^2 => $
-
-Out comes =9 kg m^2 / s^2=
-
-*Solving equations, in place.* Press =C-x * u= in the formula:
-$solve(22 x + 33 = 65, x) => $
-
-*Finale: make it pretty.* Embedded mode can also draw formulas in two dimensions — stacked fractions, raised exponents, roots — with the Big language. A global-mode line sets the display for the whole buffer; Calc scans for it from the top of the buffer, so where you place it does not matter:
-[calc-global-mode: language: nil]
-Change that =nil= to =big=, re-scan with =C-x * a=, then recompute with =M-1 C-x * u=: every formula in the post redraws stacked. A 2-D formula spans several lines, so it will break.
