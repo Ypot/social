@@ -13,8 +13,8 @@
 :TAGS: emacs calc calc-embedded
 :END:
 *** How to read this post
-- Want to read this in Org Social? You can follow me: =#+FOLLOW: Ypot https://ypot.github.io/social/org-social.org=, and activate org-mode: =M-x org-mode= when reading the post.
 - You could open it in Emacs (interactive): =M-x eww RET https://raw.githubusercontent.com/Ypot/social/refs/heads/main/org-social.org=. Optionally, you can do =M-x org-mode=.
+- Want to read this in Org Social? You can follow me: =#+FOLLOW: Ypot https://ypot.github.io/social/org-social.org=, and activate org-mode: =M-x org-mode= when reading the post.
 - Just want it rendered in a browser? https://github.com/Ypot/social/blob/main/org-social.org (not interactive, not recommended).
 
 *** Intro
