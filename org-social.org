@@ -145,7 +145,7 @@ cascade recomputation (Emacs bug#80901)."
 :MOOD: 🛠️
 :END:
 Been building a little tycoon game on the side (you run a project company, take on jobs, and try to keep the budget and the deadlines under control).
-Built for the 2026 PMP exam if you're chasing the cert; just a ¿good? sim if you're not.
+Built for the 2026 PMP exam if you're chasing the cert; just an intent of a fun sim if you're not.
 
 Why it might be your kind of thing:
 - *A real management sim* — not a quiz wearing a game costume.
