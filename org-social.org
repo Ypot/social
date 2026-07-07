@@ -80,11 +80,17 @@ Change that =nil= to =big=, re-scan with =C-x * a=, then recompute with =M-1 C-x
 
 *** Bonus: base conversion
 [calc-mode: radix: 2]
-$16#A3$
+
+16#A3
+
 [calc-mode: radix: 6]
-$16#A3$
+
+16#A3
+
 [calc-mode: radix: 10]
-$16#A3$
+
+16#A3
+
 *** Footnotes
 [fn:1893e64a74b69123] Thanks to Eli Zaretskii for solving it for Emacs 31 ([[https://debbugs.gnu.org/cgi/bugreport.cgi?bug=80901][Emacs bug#80901]]). On Emacs 30.x and earlier you may need this workaround:
 #+begin_src emacs-lisp
