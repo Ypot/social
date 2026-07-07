@@ -145,7 +145,7 @@ cascade recomputation (Emacs bug#80901)."
 :MOOD: 🛠️
 :END:
 Been building a little tycoon game on the side (you run a project company, take on jobs, and try to keep the budget and the deadlines under control).
-Built for the 2026 PMP exam if you're chasing the cert; just an attempt of a fun sim if you're not.
+Built for the 2026 PMP exam if you're chasing the cert; just an attempt at a fun sim if you're not.
 
 Why it might be your kind of thing:
 - *A real management sim* — not a quiz wearing a game costume.
@@ -156,5 +156,8 @@ It's in a closed beta on Google Play. If you are willing to try it for a couple 
 
 To try it: first join the group: https://groups.google.com/g/pm-tycoon-testers
 Then install: https://play.google.com/store/apps/details?id=app.pmtycoon
-(same Google account for both; if Play says "not available" at first, wait a bit).
-More info: pmtycoon.app/en/beta
+
+One Google account, start to finish. The beta is tied to the Google account your phone uses for the Play Store (check it: Play Store → your profile picture). Join the group and install with that same account.
+If the group opens the wrong account (common with several accounts), open the link in a private/incognito window and sign in with the right one — clean session, no mix-ups.
+Still stuck? Email me and I'll add you directly.
+
