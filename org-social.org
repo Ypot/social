@@ -10,7 +10,7 @@
 :PROPERTIES:
 :CLIENT: org-social.el
 :LANG: en
-:TAGS: emacs calc calc-embedded
+:TAGS: emacs calc calc-embedded emacs-carnival
 :END:
 *** How to read this post
 - You could open it in Emacs (interactive): =M-x eww RET https://raw.githubusercontent.com/Ypot/social/refs/heads/main/org-social.org=. Optionally, you can do =M-x org-mode= (strongly recommended).
