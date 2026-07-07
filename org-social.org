@@ -135,3 +135,26 @@ cascade recomputation (Emacs bug#80901)."
                   (calc-embedded-update-all-formulas)
                 (funcall orig arg))))
 #+end_src
+
+** 2026-07-07T21:09:51+0200
+:PROPERTIES:
+:ID: 2026-07-07T21:10:29+0200
+:LANG: en
+:CLIENT: org-social.el
+:TAGS: pmp projectmanagement android beta
+:MOOD: 🛠️
+:END:
+Been building a little tycoon game on the side (you run a project company, take on jobs, and try to keep the budget and the deadlines under control).
+Built for the 2026 PMP exam if you're chasing the cert; just a ¿good? sim if you're not.
+
+Why it might be your kind of thing:
+- *A real management sim* — not a quiz wearing a game costume.
+- *No ads, no tracking, no phone-home.* Your data never leaves the device.
+- One-person, nights-and-weekends project.
+
+It's in a closed beta on Google Play. If you are willing to try it for a couple of weeks (Google's beta rules) you'd really help me out — and as a thank-you, everyone who tests during the beta keeps the full version free, for good.    
+
+To try it: first join the group: https://groups.google.com/g/pm-tycoon-testers
+Then install: https://play.google.com/store/apps/details?id=app.pmtycoon
+(same Google account for both; if Play says "not available" at first, wait a bit).
+More info: pmtycoon.app/en/beta
