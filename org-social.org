@@ -13,8 +13,8 @@
 :TAGS: emacs calc calc-embedded
 :END:
 *** How to read this post
-- You could open it in Emacs (interactive): =M-x eww RET https://raw.githubusercontent.com/Ypot/social/refs/heads/main/org-social.org=. Optionally, you can do =M-x org-mode=.
-- Want to read this in Org Social? You can follow me: =#+FOLLOW: Ypot https://ypot.github.io/social/org-social.org=, and activate org-mode: =M-x org-mode= when reading the post.
+- You could open it in Emacs (interactive): =M-x eww RET https://raw.githubusercontent.com/Ypot/social/refs/heads/main/org-social.org=. Optionally, you can do =M-x org-mode= (strongly recommended).
+- Want to read this in Org Social? You can follow me: =#+FOLLOW: Ypot https://ypot.github.io/social/org-social.org=, and activate org-mode: =M-x org-mode= when reading the post (strongly recommended).
 - Just want it rendered in a browser? https://github.com/Ypot/social/blob/main/org-social.org (not interactive, not recommended).
 
 *** Intro
@@ -78,6 +78,13 @@ Embedded mode can also draw formulas in two dimensions — stacked fractions, ra
 [calc-global-mode: language: nil]
 Change that =nil= to =big=, re-scan with =C-x * a=, then recompute with =M-1 C-x * u=: every formula in the post redraws stacked. A 2-D formula spans several lines, so it will break.
 
+*** Bonus: base conversion
+[calc-mode: radix: 2]
+$16#A3$
+[calc-mode: radix: 6]
+$16#A3$
+[calc-mode: radix: 10]
+$16#A3$
 *** Footnotes
 [fn:1893e64a74b69123] Thanks to Eli Zaretskii for solving it for Emacs 31 ([[https://debbugs.gnu.org/cgi/bugreport.cgi?bug=80901][Emacs bug#80901]]). On Emacs 30.x and earlier you may need this workaround:
 #+begin_src emacs-lisp
