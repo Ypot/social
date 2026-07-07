@@ -1,4 +1,4 @@
-#+TITLE: Emacs Carnival (calc embedded)
+#+TITLE: Ypot's
 #+NICK: Ypot
 #+AVATAR: https://github.com/Ypot.png
 #+LINK: https://github.com/Ypot/
